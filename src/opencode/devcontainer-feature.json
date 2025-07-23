@@ -1,0 +1,56 @@
+{
+  "name": "OpenCode AI",
+  "id": "opencode",
+  "version": "1.0.0",
+  "description": "AI coding agent, built for the terminal. Installs opencode and optionally configures it.",
+  "options": {
+    "installLocation": {
+      "type": "string",
+      "default": "",
+      "description": "Installation directory for the opencode binary. Leave empty to use OpenCode's default ($HOME/.opencode/bin)"
+    },
+    "theme": {
+      "type": "string",
+      "default": "",
+      "description": "Theme name to use for the interface"
+    },
+    "model": {
+      "type": "string",
+      "default": "",
+      "description": "Model to use in the format of provider/model, eg anthropic/claude-3-5-sonnet-20241022"
+    },
+    "smallModel": {
+      "type": "string",
+      "default": "",
+      "description": "Small model to use for tasks like summarization and title generation"
+    },
+    "username": {
+      "type": "string",
+      "default": "",
+      "description": "Custom username to display in conversations instead of system username"
+    },
+    "autoupdate": {
+      "type": "boolean",
+      "default": true,
+      "description": "Automatically update to the latest version"
+    },
+    "share": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "auto",
+        "disabled"
+      ],
+      "default": "disabled",
+      "description": "Control sharing behavior: 'manual' allows manual sharing via commands, 'auto' enables automatic sharing, 'disabled' disables all sharing"
+    },
+    "leaderKey": {
+      "type": "string",
+      "default": "ctrl+x",
+      "description": "Leader key for keybind combinations"
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
+}
