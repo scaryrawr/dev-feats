@@ -11,7 +11,7 @@
     },
     "theme": {
       "type": "string",
-      "default": "",
+      "default": "system",
       "description": "Theme name to use for the interface"
     },
     "model": {
