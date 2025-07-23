@@ -1,0 +1,24 @@
+{
+    "opencode_with_options": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "opencode": {
+                "theme": "mocha",
+                "model": "anthropic/claude-3-5-sonnet-20241022",
+                "smallModel": "anthropic/claude-3-haiku-20240307",
+                "username": "testuser",
+                "autoupdate": false,
+                "share": "disabled",
+                "leaderKey": "ctrl+a"
+            }
+        }
+    },
+    "opencode_custom_install_location": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "opencode": {
+                "installLocation": "/opt/bin"
+            }
+        }
+    }
+}
