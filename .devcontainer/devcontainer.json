@@ -25,6 +25,6 @@
         "ghcr.io/devcontainers/features/node:1": {}
     },
     "onCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install --lts",
-    "postCreateCommand": "npm install -g @devcontainers/cli",
-    "updateContentCommand": "npm install -g @devcontainers/cli"
+    "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm use --lts && npm install -g @devcontainers/cli",
+    "updateContentCommand": ". ${NVM_DIR}/nvm.sh && nvm use --lts && npm install -g @devcontainers/cli"
 }
