@@ -120,5 +120,6 @@ if [ "$download_success" = false ]; then
   exit 1
 fi
 
+mkdir -p /usr/local/share/zig
 tar -xJ -C /usr/local/share/zig --strip-components=1 -f "$tarball_file"
 ln -s /usr/local/share/zig/zig /usr/local/bin/zig
