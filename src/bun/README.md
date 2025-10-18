@@ -17,5 +17,3 @@
 | Options Id | Description                   | Type   | Default Value |
 | ---------- | ----------------------------- | ------ | ------------- |
 | version    | The version of bun to install | string |               |
-
----
