@@ -14,8 +14,6 @@ jobs:
       matrix:
         features:
           - bun
-          - color
-          - hello
         baseImage:
           - debian:latest
           - fedora:latest
@@ -37,8 +35,6 @@ jobs:
       matrix:
         features:
           - bun
-          - color
-          - hello
     steps:
       - uses: actions/checkout@v4
 
