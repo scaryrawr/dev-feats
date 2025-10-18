@@ -1,0 +1,14 @@
+{
+  "name": "My Favorite Color",
+  "id": "color",
+  "version": "1.0.3",
+  "description": "A feature to remind you of your favorite color",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "",
+      "description": "Bun version to install defaults to latest. (example: 1.3.0)"
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}
