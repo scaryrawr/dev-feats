@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# Store before sourcing os-release
+BUN_VERSION="$VERSION"
+
 . /etc/os-release
 apt_get_update() {
   case "${ID}" in
@@ -40,17 +43,17 @@ export DEBIAN_FRONTEND=noninteractive
 
 check_packages curl unzip bash
 
-if [ -z "$VERSION" ]; then
+if [ -z "$BUN_VERSION" ]; then
   curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr/local bash
 else
   # Strip leading 'v' if present
-  VERSION=$(echo "$VERSION" | sed 's/^v//')
+  BUN_VERSION=$(echo "$BUN_VERSION" | sed 's/^v//')
 
   # Validate version format (basic semver: x.y.z with optional prerelease/build metadata)
-  if ! echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
-    echo "Error: Invalid version format '$VERSION'. Expected format: x.y.z (e.g., 1.3.0)" >&2
+  if ! echo "$BUN_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
+    echo "Error: Invalid version format '$BUN_VERSION'. Expected format: x.y.z (e.g., 1.3.0)" >&2
     exit 1
   fi
 
-  curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr/local bash -s "bun-v$VERSION"
+  curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr/local bash -s "bun-v$BUN_VERSION"
 fi
