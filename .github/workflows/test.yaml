@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         features:
+          - bun
           - color
           - hello
         baseImage:
@@ -34,6 +35,7 @@ jobs:
     strategy:
       matrix:
         features:
+          - bun
           - color
           - hello
     steps:
