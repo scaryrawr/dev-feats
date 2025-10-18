@@ -13,7 +13,7 @@ Installs the [Bun](https://bun.sh/) JavaScript runtime - a fast all-in-one JavaS
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
         "ghcr.io/scaryrawr/dev-feats/bun:1": {
-            "version": "latest"
+            "version": "1.3.0"
         }
     }
 }
