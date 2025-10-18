@@ -44,8 +44,8 @@ export DEBIAN_FRONTEND=noninteractive
 check_packages curl ca-certificates jq tar xz-utils minisign
 
 # Validate version format (basic semver: x.y.z with optional prerelease/build metadata)
-if ! echo "$ZIG_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
-  echo "Error: Invalid version format '$ZIG_VERSION'. Expected format: x.y.z (e.g., 1.3.0)" >&2
+if [ "$ZIG_VERSION" != "master" ] && ! echo "$ZIG_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
+  echo "Error: Invalid version format '$ZIG_VERSION'. Expected format: x.y.z (e.g., 1.3.0) or 'master'" >&2
   exit 1
 fi
 
