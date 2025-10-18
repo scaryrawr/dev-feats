@@ -1,8 +1,47 @@
 #!/bin/sh
 set -e
 
+source /etc/os-release
+apt_get_update() {
+  case "${ID}" in
+  debian | ubuntu)
+    if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+      echo "Running apt-get update..."
+      apt-get update -y
+    fi
+    ;;
+  fedora | rhel)
+    dnf update -y
+    ;;
+  esac
+}
+
+# Checks if packages are installed and installs them if not
+check_packages() {
+  case "${ID}" in
+  debian | ubuntu)
+    if ! dpkg -s "$@" >/dev/null 2>&1; then
+      apt_get_update
+      apt-get -y install --no-install-recommends "$@"
+    fi
+    ;;
+  alpine)
+    if ! apk -e info "$@" >/dev/null 2>&1; then
+      apk add --no-cache "$@"
+    fi
+    ;;
+  fedora | rhel)
+    dnf install -y --setopt=install_weak_deps=False "$@"
+    ;;
+  esac
+}
+
+export DEBIAN_FRONTEND=noninteractive
+
+check_packages curl unzip bash
+
 if [ -z "$VERSION" ]; then
-  curl -fsSL https://bun.sh/install | sudo BUN_INSTALL=/usr/local bash
+  curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr/local bash
 else
   # Strip leading 'v' if present
   VERSION=$(echo "$VERSION" | sed 's/^v//')
