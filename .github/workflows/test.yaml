@@ -18,6 +18,7 @@ jobs:
           - hello
         baseImage:
           - debian:latest
+          - fedora:latest
           - ubuntu:latest
           - mcr.microsoft.com/devcontainers/base:ubuntu
     steps:
