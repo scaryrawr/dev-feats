@@ -13,10 +13,12 @@ jobs:
     strategy:
       matrix:
         features:
+          - bun
           - color
           - hello
         baseImage:
           - debian:latest
+          - fedora:latest
           - ubuntu:latest
           - mcr.microsoft.com/devcontainers/base:ubuntu
     steps:
@@ -34,6 +36,7 @@ jobs:
     strategy:
       matrix:
         features:
+          - bun
           - color
           - hello
     steps:

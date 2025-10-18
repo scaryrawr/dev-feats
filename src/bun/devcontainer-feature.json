@@ -1,0 +1,14 @@
+{
+  "name": "Bun",
+  "id": "bun",
+  "version": "1.0.3",
+  "description": "Installs the Bun JavaScript runtime",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "",
+      "description": "Bun version to install defaults to latest. (example: 1.3.0)"
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}
