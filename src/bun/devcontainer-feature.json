@@ -1,8 +1,8 @@
 {
-  "name": "My Favorite Color",
-  "id": "color",
+  "name": "Bun",
+  "id": "bun",
   "version": "1.0.3",
-  "description": "A feature to remind you of your favorite color",
+  "description": "Installs the Bun JavaScript runtime",
   "options": {
     "version": {
       "type": "string",
