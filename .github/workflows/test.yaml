@@ -14,8 +14,6 @@ jobs:
       matrix:
         features:
           - bun
-          - color
-          - hello
         baseImage:
           - debian:latest
           - fedora:latest
