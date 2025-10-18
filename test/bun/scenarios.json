@@ -1,16 +1,10 @@
 {
-    "default_version": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "bun": {}
-        }
-    },
-    "specific_version": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "bun": {
-                "version": "1.2.23"
-            }
-        }
+  "specific_version": {
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "bun": {
+        "version": "1.2.23"
+      }
     }
+  }
 }
