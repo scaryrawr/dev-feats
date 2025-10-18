@@ -7,7 +7,7 @@
     "version": {
       "type": "string",
       "default": "master",
-      "description": "Zig version to install defaults to master. (example: 0.15.2)"
+      "description": "Zig version to install, defaults to master. (example: 0.15.2)"
     }
   },
   "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
