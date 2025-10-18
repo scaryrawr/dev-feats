@@ -52,5 +52,5 @@ else
     exit 1
   fi
 
-  curl -fsSL https://bun.sh/install | sudo BUN_INSTALL=/usr/local bash -s "bun-v$VERSION"
+  curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr/local bash -s "bun-v$VERSION"
 fi
