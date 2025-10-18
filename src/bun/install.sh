@@ -41,7 +41,7 @@ check_packages() {
 
 export DEBIAN_FRONTEND=noninteractive
 
-check_packages curl unzip bash
+check_packages curl ca-certificates unzip bash
 
 if [ -z "$BUN_VERSION" ]; then
   curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr/local bash
