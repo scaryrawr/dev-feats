@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-source /etc/os-release
+. /etc/os-release
 apt_get_update() {
   case "${ID}" in
   debian | ubuntu)
