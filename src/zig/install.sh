@@ -34,14 +34,22 @@ check_packages() {
     fi
     ;;
   fedora | rhel)
-    dnf install -y --setopt=install_weak_deps=False "$@"
+    dnf install -y --skip-unavailable --setopt=install_weak_deps=False "$@"
     ;;
   esac
 }
 
 export DEBIAN_FRONTEND=noninteractive
 
-check_packages curl ca-certificates jq tar xz-utils minisign
+# Use correct package name for xz based on distribution
+case "${ID}" in
+  fedora | rhel)
+    check_packages curl ca-certificates jq tar xz minisign
+    ;;
+  *)
+    check_packages curl ca-certificates jq tar xz-utils minisign
+    ;;
+esac
 
 # Validate version format (basic semver: x.y.z with optional prerelease/build metadata)
 if [ "$ZIG_VERSION" != "master" ] && ! echo "$ZIG_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
