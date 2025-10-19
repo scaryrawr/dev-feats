@@ -23,15 +23,35 @@ Installs the [Bun](https://bun.sh/) JavaScript runtime - a fast all-in-one JavaS
 
 - `version` (string): Bun version to install. Defaults to latest. (example: `1.3.0`)
 
-## Usage
+### `zig`
 
-To use this Feature in your dev container:
+Installs the [Zig](https://ziglang.org/) programming language - a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software.
 
 ```jsonc
 {
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
-        "ghcr.io/scaryrawr/dev-feats/bun:1": {}
+        "ghcr.io/scaryrawr/dev-feats/zig:1": {
+            "version": "0.15.2"
+        }
+    }
+}
+```
+
+#### Options
+
+- `version` (string): Zig version to install. Defaults to master. (example: `0.15.2`)
+
+## Usage
+
+To use these features in your dev container:
+
+```jsonc
+{
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/scaryrawr/dev-feats/bun:1": {},
+        "ghcr.io/scaryrawr/dev-feats/zig:1": {}
     }
 }
 ```
