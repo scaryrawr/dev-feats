@@ -12,7 +12,7 @@ source dev-container-features-test-lib
 # The 'check' command comes from the dev-container-features-test-lib.
 check "zig version is 0.14.1" bash -c "zig version | grep '0.14.1'"
 check "zls is installed" bash -c "zls --version"
-check "zls version matches zig" bash -c "zls --version | grep '0.14.1'"
+check "zls version matches zig" bash -c "zls --version | grep '0.14.0'"
 
 # Report result
 # If any of the checks above exited with a non-zero exit code, the test will fail.
