@@ -1,8 +1,8 @@
 {
   "name": "zig",
   "id": "zig",
-  "version": "1.0.0",
-  "description": "Installs the Zig programming language",
+  "version": "1.1.0",
+  "description": "Installs the Zig programming language and ZLS (Zig Language Server)",
   "options": {
     "version": {
       "type": "string",
