@@ -1,7 +1,7 @@
 
 # zig (zig)
 
-Installs the Zig programming language
+Installs the Zig programming language and ZLS (Zig Language Server)
 
 ## Example Usage
 

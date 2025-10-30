@@ -43,12 +43,12 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Use correct package name for xz based on distribution
 case "${ID}" in
-  fedora | rhel)
-    check_packages curl ca-certificates jq tar xz minisign
-    ;;
-  *)
-    check_packages curl ca-certificates jq tar xz-utils minisign
-    ;;
+fedora | rhel)
+  check_packages curl ca-certificates jq tar xz minisign
+  ;;
+*)
+  check_packages curl ca-certificates jq tar xz-utils minisign
+  ;;
 esac
 
 # Validate version format (basic semver: x.y.z with optional prerelease/build metadata)
@@ -131,3 +131,90 @@ fi
 mkdir -p /usr/local/share/zig
 tar -xJ -C /usr/local/share/zig --strip-components=1 -f "$tarball_file"
 ln -s /usr/local/share/zig/zig /usr/local/bin/zig
+
+# Install ZLS (Zig Language Server)
+echo "Installing ZLS..."
+
+# ZLS public key for minisign verification
+ZLS_PUBKEY="RWR+9B91GBZ0zOjh6Lr17+zKf5BoSuFvrx2xSeDE57uIYvnKBGmMjOex"
+
+# Determine ZLS version based on Zig version
+if [ "$ZIG_VERSION" = "master" ]; then
+  echo "Building ZLS from source for master version of Zig..."
+
+  # Clone ZLS repository
+  zls_tmp_dir=$(mktemp -d)
+  original_dir=$(pwd)
+  check_packages git
+  git clone --depth 1 https://github.com/zigtools/zls.git "$zls_tmp_dir"
+
+  # Build ZLS
+  cd "$zls_tmp_dir"
+  zig build -Doptimize=ReleaseSafe
+
+  # Install ZLS
+  mkdir -p /usr/local/share/zls
+  cp zig-out/bin/zls /usr/local/share/zls/zls
+  ln -s /usr/local/share/zls/zls /usr/local/bin/zls
+
+  # Cleanup
+  cd "$original_dir"
+  rm -rf "$zls_tmp_dir"
+
+  echo "ZLS built and installed from source"
+else
+  # Extract major.minor version (ZLS uses x.y.0 format)
+  zls_version="${ZIG_VERSION%.*}.0"
+
+  echo "Installing ZLS version $zls_version..."
+
+  # Determine architecture for ZLS
+  arch=$(uname -m)
+  case "$arch" in
+  x86_64)
+    zls_arch="x86_64"
+    ;;
+  aarch64)
+    zls_arch="aarch64"
+    ;;
+  armv7l)
+    zls_arch="arm"
+    ;;
+  *)
+    echo "Warning: Unsupported architecture $arch for ZLS prebuilt binaries, skipping ZLS installation" >&2
+    exit 0
+    ;;
+  esac
+
+  zls_tarball_name="zls-${zls_arch}-linux.tar.xz"
+  zls_tarball_file=$(mktemp)
+  zls_minisig_file=$(mktemp)
+
+  # Try to download ZLS release
+  zls_url="https://github.com/zigtools/zls/releases/download/${zls_version}/${zls_tarball_name}"
+  zls_minisig_url="${zls_url}.minisig"
+
+  if curl -fsSL "$zls_url" -o "$zls_tarball_file"; then
+    if curl -fsSL "$zls_minisig_url" -o "$zls_minisig_file"; then
+      if minisign -Vm "$zls_tarball_file" -P "$ZLS_PUBKEY" -x "$zls_minisig_file" >/dev/null 2>&1; then
+        echo "Successfully downloaded and verified ZLS $zls_version"
+
+        # Extract and install ZLS
+        mkdir -p /usr/local/share/zls
+        tar -xJ -C /usr/local/share/zls -f "$zls_tarball_file"
+        ln -s /usr/local/share/zls/zls /usr/local/bin/zls
+
+        echo "ZLS installed successfully"
+      else
+        echo "Warning: ZLS signature verification failed, skipping ZLS installation" >&2
+      fi
+    else
+      echo "Warning: Failed to download ZLS signature, skipping ZLS installation" >&2
+    fi
+  else
+    echo "Warning: Failed to download ZLS $zls_version (may not exist for this Zig version), skipping ZLS installation" >&2
+  fi
+
+  # Cleanup ZLS temp files
+  rm -f "$zls_tarball_file" "$zls_minisig_file"
+fi
